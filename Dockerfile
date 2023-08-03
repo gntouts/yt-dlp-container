@@ -20,3 +20,5 @@ FROM debian:latest
 COPY --from=dl /youtube-dl /usr/local/bin/youtube-dl
 RUN chmod +x /usr/local/bin/youtube-dl
 WORKDIR /workspace
+
+ENTRYPOINT ["/usr/local/bin/youtube-dl"]
