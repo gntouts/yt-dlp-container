@@ -1,9 +1,9 @@
 name: Publish image
 
 on:
+  workflow_dispatch:
   schedule:
   - cron: "0 12 * * 5"
-  workflow_dispatch:
 
 jobs:
   build:
