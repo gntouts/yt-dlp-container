@@ -1,10 +1,10 @@
-FROM alpine:latest as dl
-
-ARG version
-ENV version $version
+FROM debian:latest as dl
 
 ARG TARGETARCH
-RUN apk add --no-cache curl
+RUN DEBIAN_FRONTEND=noninteractive apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
+RUN DEBIAN_FRONTEND=noninteractive apt-get install curl -y
+
 RUN version=$(curl -L -s -o /dev/null -w '%{url_effective}' "https://github.com/yt-dlp/yt-dlp/releases/latest" | awk -F'/' '{print $NF}') &&\
     curl -L -o youtube-dl https://github.com/yt-dlp/yt-dlp/releases/download/$YT_DL/yt-dlp_linux_${TARGETARCH}
 
@@ -15,7 +15,8 @@ RUN version=$(curl -L -s -o /dev/null -w '%{url_effective}' "https://github.com/
         *) echo "Invalid platform"; exit 1 ;; \
     esac
 
-FROM alpine:latest
+FROM debian:latest
 
 COPY --from=dl /youtube-dl /usr/local/bin/youtube-dl
 RUN chmod +x /usr/local/bin/youtube-dl
+WORKDIR /workspace
