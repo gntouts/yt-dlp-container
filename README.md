@@ -13,5 +13,5 @@ Support for Linux and architectures:
 
 ```bash
 docker pull gntouts/yt-dlp:latest
-docker run --rm -ti -v $(pwd):/workspace gntouts/yt-dlp https://www.youtube.com/watch?v=2xx_2XNxxfA
+docker run --rm -ti -v $(pwd):/workspace gntouts/yt-dlp youtube-dl https://www.youtube.com/watch?v=2xx_2XNxxfA
 ```
