@@ -16,7 +16,8 @@ RUN version=$(curl -L -s -o /dev/null -w '%{url_effective}' "https://github.com/
     esac
 
 FROM debian:latest
-
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends --purge ffmpeg -y
 COPY --from=dl /youtube-dl /usr/local/bin/youtube-dl
 RUN chmod +x /usr/local/bin/youtube-dl
 WORKDIR /workspace
